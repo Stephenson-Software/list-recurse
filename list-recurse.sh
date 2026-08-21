@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/bin/bash
 # Recursively list all files in a directory.
 
 # ANSI color codes
