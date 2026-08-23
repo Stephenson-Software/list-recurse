@@ -25,8 +25,11 @@ else
     indent_level=$2
 fi
 
+# expand an unmatched glob to nothing instead of the literal pattern
+shopt -s nullglob
+
 # for each file in directory
-for f in $1/*; do
+for f in "$1"/*; do
 
     # build indentation string
     indent_string=""
@@ -42,7 +45,7 @@ for f in $1/*; do
         indent_level=$((indent_level+1))
 
         # recursively list files in directory
-        $PROJECT_ROOT_DIR/list-recurse.sh "$f" $indent_level
+        "$PROJECT_ROOT_DIR/list-recurse.sh" "$f" "$indent_level"
 
         # decrement indent level
         indent_level=$((indent_level-1))
