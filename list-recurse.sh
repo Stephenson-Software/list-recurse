@@ -18,6 +18,12 @@ if [ -z "$1" ]; then
     exit 1
 fi
 
+# check if argument is a directory
+if [ ! -d "$1" ]; then
+    echo "Not a directory: $1. Usage: list-recurse.sh <directory>"
+    exit 1
+fi
+
 # set indent level
 if [ -z "$2" ]; then
     indent_level=0
