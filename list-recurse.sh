@@ -8,19 +8,19 @@ NC='\033[0m' # No Color
 
 # check if PROJECT_ROOT_DIR is set
 if [ -z "$PROJECT_ROOT_DIR" ]; then
-    echo "PROJECT_ROOT_DIR is not set. Please set PROJECT_ROOT_DIR to the root directory of the project."
+    echo "PROJECT_ROOT_DIR is not set. Please set PROJECT_ROOT_DIR to the root directory of the project." >&2
     exit 1
 fi
 
 # check if argument is supplied
 if [ -z "$1" ]; then
-    echo "No argument supplied. Usage: list-recurse.sh <directory>"
+    echo "No argument supplied. Usage: list-recurse.sh <directory>" >&2
     exit 1
 fi
 
 # check if argument is a directory
 if [ ! -d "$1" ]; then
-    echo "Not a directory: $1. Usage: list-recurse.sh <directory>"
+    echo "Not a directory: $1. Usage: list-recurse.sh <directory>" >&2
     exit 1
 fi
 
