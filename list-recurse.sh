@@ -45,7 +45,7 @@ for f in "$1"/*; do
     
     if [ -d "$f" ]; then
         # print directory name
-        echo -e "${YELLOW}$indent_string$(basename "$f")"
+        printf '%b%s%s\n' "$YELLOW" "$indent_string" "$(basename "$f")"
 
         # increment indent level
         indent_level=$((indent_level+1))
@@ -57,7 +57,7 @@ for f in "$1"/*; do
         indent_level=$((indent_level-1))
     else
         # print file name
-        echo -e "${BLUE}$indent_string$(basename "$f")"
+        printf '%b%s%s\n' "$BLUE" "$indent_string" "$(basename "$f")"
     fi
 done
 
