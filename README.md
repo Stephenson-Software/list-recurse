@@ -21,3 +21,6 @@ Each entry is printed on its own line as its name only, not its full path. Entri
 
 ## Hidden entries
 Entries whose names begin with a dot are not listed. The loop matches directory contents with `*`, which bash does not expand to dot-prefixed names, so hidden files and hidden directories are skipped at every level of the recursion — including `.git` when the script is pointed at a working copy.
+
+## Symbolic links
+Symbolic links to directories are followed. The loop tests each entry with `[ -d "$f" ]`, which is true for a link that points at a directory, so the link is printed as a directory and the script recurses into it. Nothing limits the depth of the recursion, so a link that points at the directory containing it, or at any directory above that, makes the script recurse until it is interrupted or a system limit stops it. Avoid running the script on a tree that contains such a link. A symbolic link to a file is printed as a file. A broken link is also printed as a file, because `[ -d ]` is false for it.
