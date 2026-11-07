@@ -12,6 +12,12 @@ if [ -z "$PROJECT_ROOT_DIR" ]; then
     exit 1
 fi
 
+# check if PROJECT_ROOT_DIR contains the script
+if [ ! -x "$PROJECT_ROOT_DIR/list-recurse.sh" ]; then
+    echo "No executable list-recurse.sh in PROJECT_ROOT_DIR: $PROJECT_ROOT_DIR. Please set PROJECT_ROOT_DIR to the root directory of the project." >&2
+    exit 1
+fi
+
 # check if argument is supplied
 if [ -z "$1" ]; then
     echo "No argument supplied. Usage: list-recurse.sh <directory>" >&2

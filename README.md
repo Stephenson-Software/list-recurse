@@ -2,7 +2,7 @@
 The `list-recurse.sh` script is a simple bash script that lists the files in a directory and its subdirectories. It is a simple example of how to use recursion in bash to apply a script to the files in a directory and its subdirectories.
 
 ## Usage
-`PROJECT_ROOT_DIR` must be set to the directory that contains `list-recurse.sh`, because the script re-invokes itself by that path each time it recurses into a subdirectory. The script exits with an error if the variable is unset or empty, but it does not check the value any further. If the value is not a directory containing a runnable `list-recurse.sh`, top-level entries are still listed, but each recursive call fails with an error from the shell on standard error, so the contents of subdirectories are missing from the listing and the script still exits with status 0.
+`PROJECT_ROOT_DIR` must be set to the directory that contains `list-recurse.sh`, because the script re-invokes itself by that path each time it recurses into a subdirectory. The script exits with status 1, printing an error to standard error, if the variable is unset or empty, or if the directory it names does not contain an executable `list-recurse.sh`. It does not check that the script found there is the copy being run, so a value that points at a different copy has that copy list the subdirectories.
 
 ```bash
 PROJECT_ROOT_DIR="$(pwd)" ./list-recurse.sh <directory>
