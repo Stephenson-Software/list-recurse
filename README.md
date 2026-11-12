@@ -26,3 +26,10 @@ Entries whose names begin with a dot are not listed. The loop matches directory 
 
 ## Symbolic links
 Symbolic links to directories are followed. The loop tests each entry with `[ -d "$f" ]`, which is true for a link that points at a directory, so the link is printed as a directory and the script recurses into it. Nothing limits the depth of the recursion, so a link that points at the directory containing it, or at any directory above that, makes the script recurse until it is interrupted or a system limit stops it. Avoid running the script on a tree that contains such a link. A symbolic link to a file is printed as a file. A broken link is also printed as a file, because `[ -d ]` is false for it.
+
+## Unreadable directories
+A directory the script cannot read is not reported as an error. Its contents are matched with the `*` glob, and bash produces no matches for a directory it cannot open; because `nullglob` is set, the loop then runs zero times. The directory name is printed with nothing listed beneath it, as if the directory were empty, and the exit status is still 0. If the directory given as the argument is itself unreadable, only the final colour-reset line is printed.
+
+A directory that has read permission but not execute (search) permission is listed differently. The glob can still read the names of its entries, so they are printed, but each `[ -d "$f" ]` test is false because the entries cannot be examined. Every entry, including any subdirectory, is therefore printed in the file colour and none is recursed into.
+
+Both cases depend on file permissions, so a user who is not subject to them, such as root, gets the full listing.
